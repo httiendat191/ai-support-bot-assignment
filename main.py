@@ -85,3 +85,38 @@ def run_daily_job():
             filename = f"{DOCS_DIR}/{article_id}.md"
             with open(filename, "w", encoding="utf-8") as f:
                 f.write(markdown_content)
+
+            files_to_upload.append(filename)
+            
+            # Update tracking memory (wait for upload to confirm save)
+            tracking_data[article_id] = remote_updated_at
+            updated_count += 1
+        else:
+            skipped_count += 1
+
+    print(f"Summary: {updated_count} New/Updated, {skipped_count} Skipped.")
+
+    # C. Upload to OpenAI (Only if there are new files)
+    if files_to_upload:
+        print(f"Uploading {len(files_to_upload)} files to Vector Store...")
+        try:
+            # Open file streams
+            file_streams = [open(path, "rb") for path in files_to_upload]
+            
+            # Upload and poll for processing
+            client.vector_stores.file_batches.upload_and_poll(
+                vector_store_id=VECTOR_STORE_ID,
+                files=file_streams
+            )
+            
+            # Save tracking state only after successful upload
+            save_tracking_data(tracking_data)
+            print("Upload Complete & Tracking Saved.")
+            
+        except Exception as e:
+            print(f"Upload Failed: {e}")
+    else:
+        print("No new updates to upload. System is up to date.")
+
+if __name__ == "__main__":
+    run_daily_job()
