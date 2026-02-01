@@ -21,7 +21,7 @@ This project implements an intelligent Customer Support Agent powered by OpenAI'
 ### 1. Clone the Repository
 
 ```bash
-git clone [https://github.com/httiendat191/ai-support-bot-assignment](https://github.com/httiendat191/ai-support-bot-assignment)
+git clone https://github.com/httiendat191/ai-support-bot-assignment.git
 cd ai-support-bot-assignment
 ```
 
@@ -45,7 +45,7 @@ Run the agent using the command below.
 ```bash
 docker run \
   -e OPENAI_API_KEY=sk-PlaceYourActualOpenAIKeyHere \
-  -e VECTOR_STORE_ID=vs_697ed0eb32f48191bcf356662e7d3288\
+  -e VECTOR_STORE_ID=vs_697ed0eb32f48191bcf356662e7d3288 \
   optibot-app
 ```
 
@@ -69,11 +69,19 @@ No new updates to upload. System is up to date.
 
 ## Proof of Work
 
+Since I do not have a permanent cloud environment, I have provided local execution evidence below to demonstrate that the Docker container and Logic work as expected.
+
+### 1. Chatbot Accuracy (Playground)
+
+The agent correctly answers user questions (e.g., _"How do I add a YouTube video?"_) using the uploaded Knowledge Base, providing accurate citations.
+
+![Playground Demo](screenshots/playground_demo.png)
+
+### 2. Full Demo Video
+
 I have recorded a full demo video showing the Docker build process, the "Delta Sync" logic, and the Chatbot answering questions with citations.
 
 **[Click here to watch the Demo Video](https://drive.google.com/file/d/1c8rgy-HXD9kEHDsyvyZgVczBP8okGwNT/view?usp=sharing)**
-
-_(Alternatively, please see the attached video file in the submission email)._
 
 ---
 
